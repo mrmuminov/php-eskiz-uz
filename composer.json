@@ -1,0 +1,29 @@
+{
+  "name": "mrmuminov/php-eskiz-uz",
+  "description": "PHP Eskiz.uz SMS Gateway package",
+  "type": "library",
+  "keywords": [
+    "php",
+    "sms",
+    "shlyuz",
+    "gateway",
+    "eskiz"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bahriddin Mo'minov",
+      "email": "darkshadeuz@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">5.6",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "mrmuminov\\eskizuz\\": "src"
+    }
+  }
+}
