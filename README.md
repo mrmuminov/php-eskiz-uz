@@ -3,6 +3,22 @@ PHP Eskiz.uz
 
 PHP Eskiz.uz SMS Gateway package
 
+## Installation
+
+```bash
+composer require mrmuminov/php-eskiz-uz
+```
+
+or add the following to your `composer.json` file:
+
+```json
+{
+    "require": {
+        "mrmuminov/php-eskiz-uz": "^1.0.0"
+    }
+}
+```
+
 ## Usage
 
 ---
