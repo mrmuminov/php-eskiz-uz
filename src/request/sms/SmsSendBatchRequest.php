@@ -7,17 +7,17 @@ use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\request\RequestInterface;
 
 /**
- * Class SmsSendRequest
+ * Class SmsSendBatchRequest
  */
-class SmsSendRequest extends AbstractRequest implements RequestInterface
+class SmsSendBatchRequest extends AbstractRequest implements RequestInterface
 {
-    public $action = '/message/sms/send';
-    public $responseClass = '\mrmuminov\eskizuz\response\sms\SmsSendResponse';
+    public $action = '/message/sms/send-batch';
+    public $responseClass = '\mrmuminov\eskizuz\response\sms\SmsSendBatchResponse';
     private $response;
 
     public function __construct(ClientInterface $client, array $type, array $headers = [])
     {
-        $request = $client->post($this->action, $type, $headers);
+        $request = $client->post($this->action, json_encode($type), $headers);
         $this->setResponse(new $this->responseClass($request));
     }
 

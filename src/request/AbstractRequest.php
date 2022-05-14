@@ -2,9 +2,6 @@
 
 namespace mrmuminov\eskizuz\request;
 
-use mrmuminov\eskizuz\types\TypeInterface;
-use mrmuminov\eskizuz\client\ClientInterface;
-
 /**
  * Class AbstractClient
  */

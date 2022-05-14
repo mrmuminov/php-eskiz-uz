@@ -6,7 +6,7 @@ use Exception;
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\response\AbstractResponse;
 
-class SmsSendResponse extends AbstractResponse
+class SmsSendBatchResponse extends AbstractResponse
 {
     public $id;
     public $status;
@@ -21,7 +21,6 @@ class SmsSendResponse extends AbstractResponse
         $this->client = $client;
         $this->message = $client->getResponse()->message;
         if ($client->getStatusCode() === 200) {
-            $this->id = $client->getResponse()->id;
             $this->status = $client->getResponse()->status;
             $this->isSuccess = true;
         }

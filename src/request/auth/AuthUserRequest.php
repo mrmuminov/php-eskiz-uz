@@ -2,7 +2,6 @@
 
 namespace mrmuminov\eskizuz\request\auth;
 
-use mrmuminov\eskizuz\types\TypeInterface;
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\request\RequestInterface;
@@ -17,7 +16,7 @@ class AuthUserRequest extends AbstractRequest implements RequestInterface
 
     public function __construct(ClientInterface $client, array $params = [], array $headers = [])
     {
-        $request = $client->get($this->action, [], $headers);
+        $request = $client->get($this->action, $headers);
         $this->setResponse(new $this->responseClass($request));
     }
 

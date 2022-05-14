@@ -2,10 +2,6 @@
 
 namespace mrmuminov\eskizuz\request\auth;
 
-use InvalidArgumentException;
-use mrmuminov\eskizuz\client\Client;
-use mrmuminov\eskizuz\types\TypeInterface;
-use mrmuminov\eskizuz\types\auth\LoginType;
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\request\RequestInterface;

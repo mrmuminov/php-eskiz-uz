@@ -4,11 +4,13 @@ namespace mrmuminov\eskizuz;
 
 use Exception;
 use mrmuminov\eskizuz\types\auth\LoginType;
+use mrmuminov\eskizuz\types\sms\BatchSmsType;
 use mrmuminov\eskizuz\types\sms\SingleSmsType;
 use mrmuminov\eskizuz\request\sms\SmsSendRequest;
 use mrmuminov\eskizuz\request\auth\AuthUserRequest;
 use mrmuminov\eskizuz\request\auth\AuthLoginRequest;
 use mrmuminov\eskizuz\request\auth\AuthRefreshRequest;
+use mrmuminov\eskizuz\request\sms\SmsSendBatchRequest;
 use mrmuminov\eskizuz\request\auth\AuthInvalidateRequest;
 
 /**
@@ -89,12 +91,25 @@ class Eskiz
     {
         $type = new SingleSmsType();
         $type->from = $from;
-        $type->message =$message;
+        $type->message = $message;
         $type->mobile_phone = $mobile_phone;
         $type->user_sms_id = $user_sms_id;
         $type->callback_url = $callback_url;
         return new SmsSendRequest($this->getClient(), $type->toArray(), [
             'Authorization' => 'Bearer ' . $this->getToken(),
+        ]);
+    }
+
+    public function requestSmsSendBatch($from, $messages, $dispatch_id, $messageToAll = null)
+    {
+        $type = new BatchSmsType();
+        $type->from = $from;
+        $type->message = $messageToAll;
+        $type->messages = $messages;
+        $type->dispatch_id = $dispatch_id;
+        return new SmsSendBatchRequest($this->getClient(), $type->toArray(), [
+            'Authorization' => 'Bearer ' . $this->getToken(),
+            'Content-Type' => 'application/json',
         ]);
     }
 }
