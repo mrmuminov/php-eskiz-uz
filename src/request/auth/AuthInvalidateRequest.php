@@ -4,15 +4,15 @@ namespace mrmuminov\eskizuz\request\auth;
 
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\request\AbstractRequest;
-use mrmuminov\eskizuz\request\RequestInterface;
+use mrmuminov\eskizuz\response\auth\AuthInvalidateResponse;
 
 /**
  * Class AuthInvalidateRequest
  */
-class AuthInvalidateRequest extends AbstractRequest implements RequestInterface
+class AuthInvalidateRequest extends AbstractRequest
 {
     public $action = '/auth/invalidate';
-    public $responseClass = '\mrmuminov\eskizuz\response\auth\AuthInvalidateResponse';
+    public $responseClass = AuthInvalidateResponse::class;
 
     public function __construct(ClientInterface $client, array $params = [], array $headers = [])
     {

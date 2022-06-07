@@ -35,7 +35,7 @@ class Client implements ClientInterface
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_HTTPHEADER => array_map(function($key, $value) {
+            CURLOPT_HTTPHEADER => array_map(static function($key, $value) {
                 return $key . ': ' . $value;
             }, array_keys($headers), $headers),
         ];
@@ -46,7 +46,7 @@ class Client implements ClientInterface
 
         $response = curl_exec($curl);
         try {
-            $this->response = json_decode($response);
+            $this->response = json_decode($response, false);
         } catch (Exception $e) {
             $this->response = $response;
         }

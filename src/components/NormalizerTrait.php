@@ -7,7 +7,7 @@ trait NormalizerTrait
 
     private function phoneNormalise($phoneNumber)
     {
-        return (int)preg_replace('/[^\d]/', '', $phoneNumber);
+        return (int)preg_replace('/\D/', '', $phoneNumber);
     }
 
     private function userSmsIdNormalize($userSmsId)

@@ -9,7 +9,7 @@ abstract class AbstractRequest implements RequestInterface
 {
     public $action = '';
     public $responseClass = '';
-    private $response;
+    protected $response;
 
     public function getAction()
     {

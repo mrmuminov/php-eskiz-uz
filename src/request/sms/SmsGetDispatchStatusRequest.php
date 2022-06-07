@@ -1,18 +1,18 @@
 <?php
 
-namespace mrmuminov\eskizuz\request\auth;
+namespace mrmuminov\eskizuz\request\sms;
 
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\request\AbstractRequest;
-use mrmuminov\eskizuz\response\auth\AuthLoginResponse;
+use mrmuminov\eskizuz\response\sms\SmsGetDispatchStatusResponse;
 
 /**
- * Class AuthLoginClient
+ * Class SmsSendRequest
  */
-class AuthLoginRequest extends AbstractRequest
+class SmsGetDispatchStatusRequest extends AbstractRequest
 {
-    public $action = '/auth/login';
-    public $responseClass = AuthLoginResponse::class;
+    public $action = '/message/sms/get-dispatch-status';
+    public $responseClass = SmsGetDispatchStatusResponse::class;
 
     public function __construct(ClientInterface $client, array $type, array $headers = [])
     {

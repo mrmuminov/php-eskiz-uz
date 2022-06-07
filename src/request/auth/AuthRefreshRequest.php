@@ -4,15 +4,15 @@ namespace mrmuminov\eskizuz\request\auth;
 
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\request\AbstractRequest;
-use mrmuminov\eskizuz\request\RequestInterface;
+use mrmuminov\eskizuz\response\auth\AuthRefreshResponse;
 
 /**
  * Class AuthRefreshClient
  */
-class AuthRefreshRequest extends AbstractRequest implements RequestInterface
+class AuthRefreshRequest extends AbstractRequest
 {
     public $action = '/auth/refresh';
-    public $responseClass = '\mrmuminov\eskizuz\response\auth\AuthRefreshResponse';
+    public $responseClass = AuthRefreshResponse::class;
 
     public function __construct(ClientInterface $client, array $params = [], array $headers = [])
     {
