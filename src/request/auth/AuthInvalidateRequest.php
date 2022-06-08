@@ -8,6 +8,8 @@ use mrmuminov\eskizuz\response\auth\AuthInvalidateResponse;
 
 /**
  * Class AuthInvalidateRequest
+ *
+ * @property AuthInvalidateResponse $response
  */
 class AuthInvalidateRequest extends AbstractRequest
 {

@@ -8,6 +8,8 @@ use mrmuminov\eskizuz\response\sms\SmsSendResponse;
 
 /**
  * Class SmsSendRequest
+ *
+ * @property SmsSendResponse $response
  */
 class SmsSendRequest extends AbstractRequest
 {

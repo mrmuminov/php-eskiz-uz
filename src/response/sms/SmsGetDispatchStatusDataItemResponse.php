@@ -3,8 +3,6 @@
 namespace mrmuminov\eskizuz\response\sms;
 
 use Exception;
-use mrmuminov\eskizuz\client\ClientInterface;
-use mrmuminov\eskizuz\response\AbstractResponse;
 
 class SmsGetDispatchStatusDataItemResponse
 {

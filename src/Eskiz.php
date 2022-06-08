@@ -16,6 +16,8 @@ use mrmuminov\eskizuz\types\sms\GetDispatchStatusType;
 use mrmuminov\eskizuz\request\auth\AuthInvalidateRequest;
 use mrmuminov\eskizuz\client\Client;
 use mrmuminov\eskizuz\request\sms\SmsGetDispatchStatusRequest;
+use mrmuminov\eskizuz\types\sms\GetUserMessagesByDispatchType;
+use mrmuminov\eskizuz\request\sms\SmsGetUserMessagesByDispatchRequest;
 
 /**
  * Class Client
@@ -204,6 +206,23 @@ class Eskiz
         $type->dispatch_id = $dispatch_id;
         $type->user_id = $user_id;
         return new SmsGetDispatchStatusRequest($this->getClient(), $type->toArray(), [
+            'Authorization' => 'Bearer ' . $this->getToken(),
+            'Content-Type' => 'multipart/form-data',
+        ]);
+    }
+
+    /**
+     * @param $dispatch_id
+     * @param $user_id
+     * @return SmsGetUserMessagesByDispatchRequest
+     * @throws Exception
+     */
+    public function requestGetUserMessagesByDispatch($dispatch_id, $user_id = null)
+    {
+        $type = new GetUserMessagesByDispatchType();
+        $type->dispatch_id = $dispatch_id;
+        $type->user_id = $user_id;
+        return new SmsGetUserMessagesByDispatchRequest($this->getClient(), $type->toArray(), [
             'Authorization' => 'Bearer ' . $this->getToken(),
             'Content-Type' => 'multipart/form-data',
         ]);

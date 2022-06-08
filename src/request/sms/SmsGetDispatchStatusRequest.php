@@ -7,7 +7,9 @@ use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\response\sms\SmsGetDispatchStatusResponse;
 
 /**
- * Class SmsSendRequest
+ * Class SmsGetDispatchStatusRequest
+ *
+ * @property SmsGetDispatchStatusResponse $response
  */
 class SmsGetDispatchStatusRequest extends AbstractRequest
 {

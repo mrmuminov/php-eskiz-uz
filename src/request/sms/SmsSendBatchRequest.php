@@ -8,6 +8,8 @@ use mrmuminov\eskizuz\response\sms\SmsSendBatchResponse;
 
 /**
  * Class SmsSendBatchRequest
+ *
+ * @property SmsSendBatchResponse $response
  */
 class SmsSendBatchRequest extends AbstractRequest
 {

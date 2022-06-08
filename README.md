@@ -52,7 +52,7 @@ $auth = $eskiz->requestAuthLogin();
 ---
 
 First, you need to create a new Eskiz object with email and password. \
-`gateway-number` is the number you want to send the SMS to. Default is 4649.\
+`gateway-number` is the number you want to send the SMS to. Default is 4546.\
 `your-message` is special message to number.\
 `your-phone-number` is phone number.\
 `your-message-identity` is special identity to message.\
@@ -91,4 +91,28 @@ $sendBatchSms = $eskiz->requestSmsSendBatch('<gateway-number>', [
     ],
 ], '<your-batch-send-identity>',
     '<your-message-to-all-numbers>');
+```
+---
+
+
+First, you need to create a new Eskiz object with email and password.
+gateway-number is the number you want to send the SMS to. Default is 4649.
+dispatch-id is batch sms identity.
+user-id Options, send user id.
+```php
+$getBatchSmsStatus = $eskiz->requestGetUserMessagesByDispatch('<dispatch-id>', '<user-id>');
+```
+$firstPageResponse The first page of the response. One page contains 15 messages.
+```php
+$firstPageResponse = $getBatchSmsStatus->getResponse();
+```
+
+Fetching the next page of the response.
+```php
+$getBatchSmsStatus->fetchNextPage();
+```
+
+The second page of the response. One page contains 15 messags.
+```php
+$secondPageResponse = $getBatchSmsStatus->getResponse();
 ```

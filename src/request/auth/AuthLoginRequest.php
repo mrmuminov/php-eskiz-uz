@@ -8,6 +8,8 @@ use mrmuminov\eskizuz\response\auth\AuthLoginResponse;
 
 /**
  * Class AuthLoginClient
+ *
+ * @property AuthLoginResponse $response
  */
 class AuthLoginRequest extends AbstractRequest
 {

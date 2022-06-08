@@ -8,6 +8,8 @@ use mrmuminov\eskizuz\response\auth\AuthRefreshResponse;
 
 /**
  * Class AuthRefreshClient
+ *
+ * @property AuthRefreshResponse $response
  */
 class AuthRefreshRequest extends AbstractRequest
 {
