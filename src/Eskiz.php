@@ -67,8 +67,8 @@ class Eskiz
 
 
     /**
-     * @param $email
-     * @param $password
+     * @param $email string
+     * @param $password string
      */
     public function __construct($email, $password)
     {
@@ -150,11 +150,11 @@ class Eskiz
     }
 
     /**
-     * @param $from
-     * @param $message
-     * @param $mobile_phone
-     * @param $user_sms_id
-     * @param $callback_url
+     * @param $from int
+     * @param $message string
+     * @param $mobile_phone int
+     * @param $user_sms_id string
+     * @param $callback_url string
      * @return SmsSendRequest
      * @throws Exception
      */
@@ -173,7 +173,7 @@ class Eskiz
 
     /**
      * @param $from numeric
-     * @param $messages string
+     * @param $messages array{to: int, message: string, id: string}
      * @param $dispatch_id string
      * @param $messageToAll string
      * @return SmsSendBatchRequest
@@ -203,9 +203,6 @@ class Eskiz
         $type = new GetDispatchStatusType();
         $type->dispatch_id = $dispatch_id;
         $type->user_id = $user_id;
-        /**
-         * form-data
-         */
         return new SmsGetDispatchStatusRequest($this->getClient(), $type->toArray(), [
             'Authorization' => 'Bearer ' . $this->getToken(),
             'Content-Type' => 'multipart/form-data',
