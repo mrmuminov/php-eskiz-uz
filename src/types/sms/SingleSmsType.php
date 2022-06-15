@@ -20,7 +20,7 @@ class SingleSmsType implements TypeInterface
     {
         if ($this->validateArguments()) {
             $options = [
-                'from' => (int)$this->from,
+                'from' => $this->from,
                 'message' => (string)$this->message,
                 'user_sms_id' => $this->userSmsIdNormalize($this->user_sms_id),
                 'mobile_phone' => $this->phoneNormalise($this->mobile_phone),
@@ -34,6 +34,9 @@ class SingleSmsType implements TypeInterface
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function validateArguments()
     {
         if (empty($this->from)) {

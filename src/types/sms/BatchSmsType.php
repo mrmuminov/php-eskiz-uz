@@ -25,7 +25,7 @@ class BatchSmsType implements TypeInterface
                 $messages[] = $singleSmsType->toArray();
             }
             return [
-                'from' => (int)$this->from,
+                'from' => $this->from,
                 'messages' => $messages,
                 'dispatch_id' => $this->dispatch_id,
             ];
