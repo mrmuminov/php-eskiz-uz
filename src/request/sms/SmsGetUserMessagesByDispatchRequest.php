@@ -71,4 +71,10 @@ class SmsGetUserMessagesByDispatchRequest extends AbstractRequest
         }
     }
 
+    public function fetchPage($page)
+    {
+        $request = $this->client->post($this->action . '?page=' . $page, $this->type, $this->headers);
+        $this->setResponse(new $this->responseClass($request));
+    }
+
 }
