@@ -10,11 +10,11 @@ use mrmuminov\eskizuz\response\AbstractResponse;
  */
 class SmsSendBatchResponse extends AbstractResponse
 {
+    public ?string $status;
+    public string $message;
 
     public function __construct(
         public ?ClientInterface $client,
-        public ?string          $status,
-        public string           $message,
     )
     {
         $this->message = $client->getResponse()->message;

@@ -26,25 +26,26 @@ use mrmuminov\eskizuz\response\AbstractResponse;
  */
 class SmsGetUserMessagesByDispatchResponse extends AbstractResponse
 {
+    public ?string $status;
+    public ?int $current_page;
+    public ?array $data;
+    public ?string $first_page_url;
+    public ?string $from;
+    public ?int $last_page;
+    public ?string $last_page_url;
+    public ?array $links;
+    public ?string $next_page_url;
+    public ?string $path;
+    public ?int $per_page;
+    public ?string $prev_page_url;
+    public ?int $to;
+    public ?int $total;
+
     /**
      * @throws Exception
      */
     public function __construct(
         public ?ClientInterface $client,
-        public ?string          $status,
-        public ?int             $current_page,
-        public ?array           $data,
-        public ?string          $first_page_url,
-        public ?string          $from,
-        public ?int             $last_page,
-        public ?string          $last_page_url,
-        public ?array           $links,
-        public ?string          $next_page_url,
-        public ?string          $path,
-        public ?int             $per_page,
-        public ?string          $prev_page_url,
-        public ?int             $to,
-        public ?int             $total,
     )
     {
         if ($client->getStatusCode() === 200) {
@@ -104,9 +105,9 @@ class SmsGetUserMessagesByDispatchResponse extends AbstractResponse
         $this->links = [];
         foreach ($data as $i => $item) {
             $this->links[$i] = new SmsGetUserMessagesByDispatchLinksResponse(
-                url: $item['url'] ?? '',
-                label: $item['label'] ?? '',
-                active: $item['active'] ?? false,
+                url: $item?->url ?? '',
+                label: $item?->label ?? '',
+                active: $item?->active ?? false,
             );
         }
     }

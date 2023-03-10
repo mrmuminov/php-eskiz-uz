@@ -15,13 +15,14 @@ class SmsGetDispatchStatusResponse extends AbstractResponse
 {
     const ESKIS_STATUS_SUCCESS = 'success';
 
+    public ?string $status;
+    public ?array $data;
+
     /**
      * @throws Exception
      */
     public function __construct(
         public ?ClientInterface $client,
-        public ?string          $status,
-        public ?array           $data,
     )
     {
         if ($client->getStatusCode() === 200 && $client->getResponse()->status === self::ESKIS_STATUS_SUCCESS) {

@@ -10,9 +10,9 @@ use Exception;
 class Client implements ClientInterface
 {
     public function __construct(
-        public string $baseUrl,
-        public int    $statusCode,
-        public mixed  $response,
+        public ?string $baseUrl,
+        public ?int    $statusCode = null,
+        public mixed  $response = null,
     )
     {
     }

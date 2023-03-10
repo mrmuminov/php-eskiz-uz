@@ -9,7 +9,6 @@ use Exception;
  */
 class SmsGetDispatchStatusDataItemResponse
 {
-
     /**
      * @throws Exception
      */

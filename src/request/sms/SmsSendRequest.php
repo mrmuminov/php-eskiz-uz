@@ -18,8 +18,8 @@ class SmsSendRequest extends AbstractRequest
 
     public function __construct(ClientInterface $client, array $type, array $headers = [])
     {
-        $request = $client->post($this->action, $type, $headers);
-        $this->setResponse(new $this->responseClass($request));
+        $client->post($this->action, $type, $headers);
+        $this->setResponse(new $this->responseClass($client));
     }
 
 }

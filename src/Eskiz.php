@@ -69,6 +69,12 @@ class Eskiz
 
     public function __construct(string $email, string $password)
     {
+        if (!class_exists($this->clientClass)) {
+            throw new RuntimeException('Client class not found');
+        }
+        $this->client = new $this->clientClass(
+            baseUrl: $this->baseUrl,
+        );
         $this->email = $email;
         $this->password = $password;
     }
