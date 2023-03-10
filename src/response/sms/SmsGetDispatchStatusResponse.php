@@ -43,7 +43,10 @@ class SmsGetDispatchStatusResponse extends AbstractResponse
         if (is_array($data)) {
             $this->data = [];
             foreach ($data as $i => $item) {
-                $this->data[$i] = new SmsGetDispatchStatusDataItemResponse($this->data[$i]);
+                $this->data[$i] = new SmsGetDispatchStatusDataItemResponse(
+                    total: $this->data[$i]['total'] ?? '',
+                    status: $this->data[$i]['status'] ?? '',
+                );
             }
         }
     }

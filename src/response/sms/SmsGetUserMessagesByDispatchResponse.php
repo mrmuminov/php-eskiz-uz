@@ -77,7 +77,25 @@ class SmsGetUserMessagesByDispatchResponse extends AbstractResponse
     {
         $this->data = [];
         foreach ($data as $i => $item) {
-            $this->data[$i] = new SmsGetUserMessagesByDispatchDataItemResponse($item);
+            $this->data[$i] = new SmsGetUserMessagesByDispatchDataItemResponse(
+                id: $item['id'] ?? '',
+                user_id: $item['user_id'] ?? '',
+                dispatch_id: $item['dispatch_id'] ?? '',
+                jasmin_id: $item['jasmin_id'] ?? '',
+                user_sms_id: $item['user_sms_id'] ?? '',
+                country_code: $item['country_code'] ?? '',
+                operator: $item['operator'] ?? '',
+                nickname: $item['nickname'] ?? '',
+                to: $item['to'] ?? '',
+                content: $item['content'] ?? '',
+                packets: $item['packets'] ?? '',
+                is_balanced: $item['is_balanced'] ?? '',
+                callback_url: $item['callback_url'] ?? '',
+                status: $item['status'] ?? '',
+                status_date: $item['status_date'] ?? '',
+                created_at: $item['created_at'] ?? '',
+                updated_at: $item['updated_at'] ?? '',
+            );
         }
     }
 
@@ -85,7 +103,11 @@ class SmsGetUserMessagesByDispatchResponse extends AbstractResponse
     {
         $this->links = [];
         foreach ($data as $i => $item) {
-            $this->links[$i] = new SmsGetUserMessagesByDispatchLinksResponse($item);
+            $this->links[$i] = new SmsGetUserMessagesByDispatchLinksResponse(
+                url: $item['url'] ?? '',
+                label: $item['label'] ?? '',
+                active: $item['active'] ?? false,
+            );
         }
     }
 

@@ -2,7 +2,6 @@
 
 namespace mrmuminov\eskizuz\response\sms;
 
-use Exception;
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\response\AbstractResponse;
 
@@ -14,7 +13,7 @@ class SmsSendBatchResponse extends AbstractResponse
 
     public function __construct(
         public ?ClientInterface $client,
-        public ?string           $status,
+        public ?string          $status,
         public string           $message,
     )
     {

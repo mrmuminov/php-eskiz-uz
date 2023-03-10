@@ -13,8 +13,8 @@ use mrmuminov\eskizuz\response\auth\AuthLoginResponse;
  */
 class AuthLoginRequest extends AbstractRequest
 {
-    public $action = '/auth/login';
-    public $responseClass = AuthLoginResponse::class;
+    public string $action = '/auth/login';
+    public string $responseClass = AuthLoginResponse::class;
 
     public function __construct(ClientInterface $client, array $type, array $headers = [])
     {

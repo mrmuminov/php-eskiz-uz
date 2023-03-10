@@ -4,9 +4,9 @@ namespace mrmuminov\eskizuz;
 
 use RuntimeException;
 use mrmuminov\eskizuz\client\Client;
+use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\types\auth\AuthLoginType;
 use mrmuminov\eskizuz\types\sms\SmsBatchSmsType;
-use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\types\sms\SmsSingleSmsType;
 use mrmuminov\eskizuz\request\sms\SmsSendRequest;
 use mrmuminov\eskizuz\request\auth\AuthUserRequest;

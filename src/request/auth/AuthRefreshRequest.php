@@ -13,8 +13,8 @@ use mrmuminov\eskizuz\response\auth\AuthRefreshResponse;
  */
 class AuthRefreshRequest extends AbstractRequest
 {
-    public $action = '/auth/refresh';
-    public $responseClass = AuthRefreshResponse::class;
+    public string $action = '/auth/refresh';
+    public string $responseClass = AuthRefreshResponse::class;
 
     public function __construct(ClientInterface $client, array $params = [], array $headers = [])
     {

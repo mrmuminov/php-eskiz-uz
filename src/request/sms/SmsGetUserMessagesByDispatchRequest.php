@@ -13,13 +13,13 @@ use mrmuminov\eskizuz\response\sms\SmsGetUserMessagesByDispatchResponse;
  */
 class SmsGetUserMessagesByDispatchRequest extends AbstractRequest
 {
-    public $client;
-    public $type;
-    public $headers;
-    public $action = '/message/sms/get-user-messages-by-dispatch';
-    public $responseClass = SmsGetUserMessagesByDispatchResponse::class;
+    public ClientInterface $client;
+    public array $type;
+    public array $headers;
+    public string $action = '/message/sms/get-user-messages-by-dispatch';
+    public string $responseClass = SmsGetUserMessagesByDispatchResponse::class;
 
-    public $errorMessages = [
+    public array $errorMessages = [
         'first_page' => "This is a first page",
         'last_page' => "This is a last page",
     ];

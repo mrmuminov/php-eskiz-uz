@@ -13,8 +13,8 @@ use mrmuminov\eskizuz\response\sms\SmsSendBatchResponse;
  */
 class SmsSendBatchRequest extends AbstractRequest
 {
-    public $action = '/message/sms/send-batch';
-    public $responseClass = SmsSendBatchResponse::class;
+    public string $action = '/message/sms/send-batch';
+    public string $responseClass = SmsSendBatchResponse::class;
 
     public function __construct(ClientInterface $client, array $type, array $headers = [])
     {

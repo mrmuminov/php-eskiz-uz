@@ -12,8 +12,8 @@ use mrmuminov\eskizuz\response\sms\SmsGetDispatchStatusResponse;
  */
 class SmsGetDispatchStatusRequest extends AbstractRequest
 {
-    public $action = '/message/sms/get-dispatch-status';
-    public $responseClass = SmsGetDispatchStatusResponse::class;
+    public string $action = '/message/sms/get-dispatch-status';
+    public string $responseClass = SmsGetDispatchStatusResponse::class;
 
     public function __construct(ClientInterface $client, array $type, array $headers = [])
     {
