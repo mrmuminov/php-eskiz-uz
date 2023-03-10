@@ -6,22 +6,21 @@ use Exception;
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\response\AbstractResponse;
 
+/**
+ * @author Bahriddin Mo'minov
+ */
 class SmsSendResponse extends AbstractResponse
 {
-    public $id;
-    public $status;
-    public $message;
-
-
-    /**
-     * @throws Exception
-     */
-    public function __construct(ClientInterface $client)
+    public function __construct(
+        public ?ClientInterface $client,
+        public ?string           $id,
+        public ?int              $status,
+        public string           $message,
+    )
     {
-        $this->client = $client;
         $this->message = $client->getResponse()->message;
         if ($client->getStatusCode() === 200) {
-            $this->id = $client->getResponse()->id;
+            $this->id = (string)$client->getResponse()->id;
             $this->status = $client->getResponse()->status;
             $this->isSuccess = true;
         }

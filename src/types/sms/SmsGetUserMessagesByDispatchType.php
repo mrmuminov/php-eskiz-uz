@@ -5,26 +5,33 @@ namespace mrmuminov\eskizuz\types\sms;
 use InvalidArgumentException;
 use mrmuminov\eskizuz\types\TypeInterface;
 
-class GetDispatchStatusType implements TypeInterface
+/**
+ * @author Bahriddin Mo'minov
+ */
+class SmsGetUserMessagesByDispatchType implements TypeInterface
 {
-    public $dispatch_id;
-    public $user_id;
+    public function __construct(
+        public string $dispatch_id,
+        public string $user_id,
+    )
+    {
+    }
 
-    public function toArray()
+    public function toArray(): array|bool
     {
         if ($this->validateArguments()) {
             $options = [
-                'dispatch_id' => (string)$this->dispatch_id
+                'dispatch_id' => $this->dispatch_id,
             ];
             if ($this->user_id) {
-                $options['user_id'] = (string)$this->user_id;
+                $options['user_id'] = $this->user_id;
             }
             return $options;
         }
         return false;
     }
 
-    public function validateArguments()
+    public function validateArguments(): bool
     {
         if (empty($this->dispatch_id)) {
             throw new InvalidArgumentException("`dispatch_id` is empty");

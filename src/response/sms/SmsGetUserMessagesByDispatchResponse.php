@@ -7,46 +7,46 @@ use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\response\AbstractResponse;
 
 /**
- * Class SmsGetUserMessagesByDispatchResponse
+ * @author Bahriddin Mo'minov
  *
- * @var string $status
- * @var int $current_page
- * @var SmsGetUserMessagesByDispatchDataItemResponse[] $data
- * @var string $first_page_url
- * @var string $from
- * @var int $last_page
- * @var string $last_page_url
- * @var SmsGetUserMessagesByDispatchLinksResponse[] $links
- * @var string $next_page_url
- * @var string $path
- * @var int $per_page
- * @var string $prev_page_url
- * @var int $to
- * @var int $total
+ * @property string $status
+ * @property int $current_page
+ * @property SmsGetUserMessagesByDispatchDataItemResponse[] $data
+ * @property string $first_page_url
+ * @property string $from
+ * @property int $last_page
+ * @property string $last_page_url
+ * @property SmsGetUserMessagesByDispatchLinksResponse[] $links
+ * @property string $next_page_url
+ * @property string $path
+ * @property int $per_page
+ * @property string $prev_page_url
+ * @property int $to
+ * @property int $total
  */
 class SmsGetUserMessagesByDispatchResponse extends AbstractResponse
 {
-    public $status;
-    public $current_page;
-    public $data;
-    public $first_page_url;
-    public $from;
-    public $last_page;
-    public $last_page_url;
-    public $links;
-    public $next_page_url;
-    public $path;
-    public $per_page;
-    public $prev_page_url;
-    public $to;
-    public $total;
-
     /**
      * @throws Exception
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(
+        public ?ClientInterface $client,
+        public ?string          $status,
+        public ?int             $current_page,
+        public ?array           $data,
+        public ?string          $first_page_url,
+        public ?string          $from,
+        public ?int             $last_page,
+        public ?string          $last_page_url,
+        public ?array           $links,
+        public ?string          $next_page_url,
+        public ?string          $path,
+        public ?int             $per_page,
+        public ?string          $prev_page_url,
+        public ?int             $to,
+        public ?int             $total,
+    )
     {
-        $this->client = $client;
         if ($client->getStatusCode() === 200) {
             $this->isSuccess = true;
             $data = $client->getResponse()->data;
@@ -73,11 +73,23 @@ class SmsGetUserMessagesByDispatchResponse extends AbstractResponse
         }
     }
 
-    /**
-     * @param $message
-     * @return void
-     */
-    public function clear($message = '')
+    public function unSerializeData(array $data): void
+    {
+        $this->data = [];
+        foreach ($data as $i => $item) {
+            $this->data[$i] = new SmsGetUserMessagesByDispatchDataItemResponse($item);
+        }
+    }
+
+    private function unSerializeLinks(array $data): void
+    {
+        $this->links = [];
+        foreach ($data as $i => $item) {
+            $this->links[$i] = new SmsGetUserMessagesByDispatchLinksResponse($item);
+        }
+    }
+
+    public function clear(string $message = ''): void
     {
         $this->isSuccess = false;
         $this->current_page = null;
@@ -94,30 +106,5 @@ class SmsGetUserMessagesByDispatchResponse extends AbstractResponse
         $this->to = null;
         $this->total = null;
         $this->message = $message;
-    }
-
-    /**
-     * @param $data
-     * @return void
-     * @throws Exception
-     */
-    public function unSerializeData($data)
-    {
-        if (is_array($data)) {
-            $this->data = [];
-            foreach ($data as $i => $item) {
-                $this->data[$i] = new SmsGetUserMessagesByDispatchDataItemResponse($item);
-            }
-        }
-    }
-
-    private function unSerializeLinks($data)
-    {
-        if (is_array($data)) {
-            $this->links = [];
-            foreach ($data as $i => $item) {
-                $this->links[$i] = new SmsGetUserMessagesByDispatchLinksResponse($item);
-            }
-        }
     }
 }

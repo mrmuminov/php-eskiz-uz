@@ -7,7 +7,7 @@ use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\response\auth\AuthLoginResponse;
 
 /**
- * Class AuthLoginClient
+ * @author Bahriddin Mo'minov
  *
  * @property AuthLoginResponse $response
  */

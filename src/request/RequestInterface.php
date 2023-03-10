@@ -5,21 +5,21 @@ namespace mrmuminov\eskizuz\request;
 use mrmuminov\eskizuz\client\ClientInterface;
 
 /**
- * Interface RequestInterface
+ * @author Bahriddin Mo'minov
  */
 interface RequestInterface
 {
     public function __construct(ClientInterface $client, array $params, array $headers = []);
 
-    public function getAction();
+    public function getAction(): string;
 
-    public function setAction($action);
+    public function setAction(string $action): void;
 
-    public function getResponse();
+    public function getResponse(): mixed;
 
-    public function setResponse($response);
+    public function setResponse(mixed $response): void;
 
-    public function getResponseClass();
+    public function getResponseClass(): string;
 
-    public function setResponseClass($responseClass);
+    public function setResponseClass(string $responseClass): void;
 }

@@ -6,19 +6,27 @@ use InvalidArgumentException;
 use mrmuminov\eskizuz\types\TypeInterface;
 use mrmuminov\eskizuz\components\NormalizerTrait;
 
-class BatchMessageType implements TypeInterface
+/**
+ * @author Bahriddin Mo'minov
+ */
+class SmsBatchMessageType implements TypeInterface
 {
     use NormalizerTrait;
 
-    public $to;
-    public $message;
-    public $user_sms_id;
+    public function __construct(
+        public string $to,
+        public string $message,
+        public string $user_sms_id,
+    )
+    {
+    }
 
-    public function toArray()
+
+    public function toArray(): array|bool
     {
         if ($this->validateArguments()) {
             return [
-                'text' => (string)$this->message,
+                'text' => $this->message,
                 'user_sms_id' => $this->userSmsIdNormalize($this->user_sms_id),
                 'to' => $this->phoneNormalise($this->to),
             ];
@@ -26,7 +34,7 @@ class BatchMessageType implements TypeInterface
         return false;
     }
 
-    public function validateArguments()
+    public function validateArguments(): bool
     {
         if (empty($this->to)) {
             throw new InvalidArgumentException("`to` is empty");

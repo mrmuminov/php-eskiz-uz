@@ -6,28 +6,26 @@ use Exception;
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\response\AbstractResponse;
 
+/**
+ * @author Bahriddin Mo'minov
+ *
+ * @property SmsGetDispatchStatusDataItemResponse[]|null $data
+ */
 class SmsGetDispatchStatusResponse extends AbstractResponse
 {
     const ESKIS_STATUS_SUCCESS = 'success';
 
     /**
-     * @var string
-     */
-    public $status;
-
-    /**
-     * @var SmsGetDispatchStatusDataItemResponse[]|null
-     */
-    public $data;
-
-    /**
      * @throws Exception
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(
+        public ?ClientInterface $client,
+        public ?string          $status,
+        public ?array           $data,
+    )
     {
-        $this->client = $client;
         if ($client->getStatusCode() === 200 && $client->getResponse()->status === self::ESKIS_STATUS_SUCCESS) {
-            $this->status = $client->getResponse()->status;
+            $this->status = (string)$client->getResponse()->status;
             $this->unSerializeData($client->getResponse()->data);
             $this->isSuccess = true;
         } else {
@@ -40,7 +38,7 @@ class SmsGetDispatchStatusResponse extends AbstractResponse
      * @return void
      * @throws Exception
      */
-    public function unSerializeData($data)
+    public function unSerializeData($data): void
     {
         if (is_array($data)) {
             $this->data = [];

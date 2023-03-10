@@ -3,12 +3,28 @@
 require 'vendor/autoload.php';
 
 use mrmuminov\eskizuz\Eskiz;
+use mrmuminov\eskizuz\types\sms\SmsBatchSmsType;
+use mrmuminov\eskizuz\types\sms\SmsSingleSmsType;
+use mrmuminov\eskizuz\types\sms\SmsBatchMessageType;
+use mrmuminov\eskizuz\types\sms\SmsGetUserMessagesByDispatchType;
 
 
 /**
  * First, you need to create a new Eskiz object with email and password.
+ * @version 2.0.0
  */
 $eskiz = new Eskiz("your@email.com", "your-secret-password");
+
+/**
+ * Declare variables
+ */
+$from = '<gateway-number>';
+$message = '<your-message>';
+$mobile_phone = '<your-phone-number>';
+$user_sms_id = '<your-message-identity>';
+$callback_url = '<your-callback-url>';
+$dispatch_id = '<your-batch-send-identity>';
+$user_id = '<user-id>';
 
 /**
  * First, you need to create a new Eskiz object with email and password.
@@ -19,7 +35,14 @@ $auth = $eskiz->requestAuthLogin();
  * First, you need to create a new Eskiz object with email and password.
  * gateway-number is the number you want to send the SMS to. Default is 4649.
  */
-$sendSingleSms = $eskiz->requestSmsSend('<gateway-number>', "<your-message>", '<your-phone-number>', '<your-message-identity>', '<your-callback-url>');
+$singleSmsType = new SmsSingleSmsType(
+    from: $from,
+    message: $message,
+    mobile_phone: $mobile_phone,
+    user_sms_id: $user_sms_id,
+    callback_url: $callback_url,
+);
+$sendSingleSms = $eskiz->requestSmsSend($singleSmsType);
 
 /**
  * First, you need to create a new Eskiz object with email and password.
@@ -27,18 +50,18 @@ $sendSingleSms = $eskiz->requestSmsSend('<gateway-number>', "<your-message>", '<
  * your-message is special message to number.
  * your-message-to-all-numbers is special message to all numbers (if message is empty).
  */
-$sendBatchSms = $eskiz->requestSmsSendBatch('<gateway-number>', [
-    [
-        'id' => '<your-message-identity>',
-        'to' => '<your-phone-number>',
-        'message' => "<your-message>" // special message to this number
+$batchSmsType = new SmsBatchSmsType(
+    from: $from,
+    messages: [
+        new SmsBatchMessageType(
+            to: $mobile_phone,
+            message: $message,
+            user_sms_id: $user_sms_id,
+        ),
     ],
-    [
-        'id' => '<your-message-identity>',
-        'to' => '<your-phone-number>',
-    ],
-], "<your-batch-send-identity>",
-    "<your-message-to-all-numbers>");
+    dispatch_id: $dispatch_id
+);
+$sendBatchSms = $eskiz->requestSmsSendBatch($batchSmsType);
 
 /**
  * First, you need to create a new Eskiz object with email and password.
@@ -46,7 +69,11 @@ $sendBatchSms = $eskiz->requestSmsSendBatch('<gateway-number>', [
  * dispatch-id is batch sms identity.
  * user-id Options, send user id.
  */
-$getBatchSmsStatus = $eskiz->requestGetUserMessagesByDispatch('<dispatch-id>', '<user-id>');
+$getUserMessagesByDispatchType = new SmsGetUserMessagesByDispatchType(
+    dispatch_id: $dispatch_id,
+    user_id: $user_id,
+);
+$getBatchSmsStatus = $eskiz->requestGetUserMessagesByDispatch($getUserMessagesByDispatchType);
 
 /** $firstPageResponse The first page of the response. One page contains 15 messages. */
 $firstPageResponse = $getBatchSmsStatus->getResponse();

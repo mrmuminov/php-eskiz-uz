@@ -2,9 +2,14 @@
 
 namespace mrmuminov\eskizuz\response;
 
-abstract class AbstractResponse
+use mrmuminov\eskizuz\client\ClientInterface;
+
+/**
+ * @author Bahriddin Mo'minov
+ */
+abstract class AbstractResponse implements ResponseInterface
 {
-    public $client = false;
-    public $isSuccess = false;
-    public $message = '';
+    public ?ClientInterface $client = null;
+    public bool $isSuccess = false;
+    public string $message = '';
 }

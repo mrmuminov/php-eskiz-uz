@@ -6,6 +6,9 @@ use Exception;
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\response\AbstractResponse;
 
+/**
+ * @author Bahriddin Mo'minov
+ */
 class AuthLoginResponse extends AbstractResponse
 {
     public $token;
@@ -23,10 +26,7 @@ class AuthLoginResponse extends AbstractResponse
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getToken()
+    public function getToken(): string
     {
         return $this->token;
     }

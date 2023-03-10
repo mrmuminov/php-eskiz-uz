@@ -6,22 +6,30 @@ use InvalidArgumentException;
 use mrmuminov\eskizuz\types\TypeInterface;
 use mrmuminov\eskizuz\components\NormalizerTrait;
 
-class SingleSmsType implements TypeInterface
+/**
+ * @author Bahriddin Mo'minov
+ */
+class SmsSingleSmsType implements TypeInterface
 {
     use NormalizerTrait;
 
-    public $from;
-    public $message;
-    public $mobile_phone;
-    public $user_sms_id;
-    public $callback_url;
+    public function __construct(
+        public string $from,
+        public string $message,
+        public string $mobile_phone,
+        public string $user_sms_id,
+        public string $callback_url = '',
+    )
+    {
+    }
 
-    public function toArray()
+
+    public function toArray(): array|bool
     {
         if ($this->validateArguments()) {
             $options = [
                 'from' => $this->from,
-                'message' => (string)$this->message,
+                'message' => $this->message,
                 'user_sms_id' => $this->userSmsIdNormalize($this->user_sms_id),
                 'mobile_phone' => $this->phoneNormalise($this->mobile_phone),
                 'callback_url' => $this->callback_url,
@@ -34,10 +42,7 @@ class SingleSmsType implements TypeInterface
         return false;
     }
 
-    /**
-     * @return bool
-     */
-    public function validateArguments()
+    public function validateArguments(): bool
     {
         if (empty($this->from)) {
             throw new InvalidArgumentException("`from` is empty");

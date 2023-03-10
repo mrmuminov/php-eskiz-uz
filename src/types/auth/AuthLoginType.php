@@ -5,12 +5,15 @@ namespace mrmuminov\eskizuz\types\auth;
 use InvalidArgumentException;
 use mrmuminov\eskizuz\types\TypeInterface;
 
-class LoginType implements TypeInterface
+/**
+ * @author Bahriddin Mo'minov
+ */
+class AuthLoginType implements TypeInterface
 {
-    public $email;
-    public $password;
+    public string $email;
+    public string $password;
 
-    public function toArray()
+    public function toArray(): bool|array
     {
         if ($this->validateArguments()) {
             return [
@@ -21,7 +24,7 @@ class LoginType implements TypeInterface
         return false;
     }
 
-    public function validateArguments()
+    public function validateArguments(): bool
     {
         if (empty($this->email)) {
             throw new InvalidArgumentException('Email is required');

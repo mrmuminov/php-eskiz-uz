@@ -7,7 +7,7 @@ use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\response\sms\SmsSendBatchResponse;
 
 /**
- * Class SmsSendBatchRequest
+ * @author Bahriddin Mo'minov
  *
  * @property SmsSendBatchResponse $response
  */

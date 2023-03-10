@@ -2,25 +2,25 @@
 
 namespace mrmuminov\eskizuz;
 
-use Exception;
 use RuntimeException;
-use mrmuminov\eskizuz\types\auth\LoginType;
-use mrmuminov\eskizuz\types\sms\BatchSmsType;
-use mrmuminov\eskizuz\types\sms\SingleSmsType;
+use mrmuminov\eskizuz\client\Client;
+use mrmuminov\eskizuz\types\auth\AuthLoginType;
+use mrmuminov\eskizuz\types\sms\SmsBatchSmsType;
+use mrmuminov\eskizuz\client\ClientInterface;
+use mrmuminov\eskizuz\types\sms\SmsSingleSmsType;
 use mrmuminov\eskizuz\request\sms\SmsSendRequest;
 use mrmuminov\eskizuz\request\auth\AuthUserRequest;
 use mrmuminov\eskizuz\request\auth\AuthLoginRequest;
 use mrmuminov\eskizuz\request\auth\AuthRefreshRequest;
 use mrmuminov\eskizuz\request\sms\SmsSendBatchRequest;
-use mrmuminov\eskizuz\types\sms\GetDispatchStatusType;
+use mrmuminov\eskizuz\types\sms\SmsGetDispatchStatusType;
 use mrmuminov\eskizuz\request\auth\AuthInvalidateRequest;
-use mrmuminov\eskizuz\client\Client;
 use mrmuminov\eskizuz\request\sms\SmsGetDispatchStatusRequest;
-use mrmuminov\eskizuz\types\sms\GetUserMessagesByDispatchType;
+use mrmuminov\eskizuz\types\sms\SmsGetUserMessagesByDispatchType;
 use mrmuminov\eskizuz\request\sms\SmsGetUserMessagesByDispatchRequest;
 
 /**
- * Class Client
+ * @author Bahriddin Mo'minov
  */
 class Eskiz
 {
@@ -60,30 +60,22 @@ class Eskiz
     const STATUS_DELETED = 'DELETED';
 
 
-    public $client;
-    public $clientClass = Client::class;
-    private $baseUrl = 'http://notify.eskiz.uz/api';
-    private $email;
-    private $password;
-    private $token;
+    public ?ClientInterface $client;
+    public string $clientClass = Client::class;
+    private string $baseUrl = 'http://notify.eskiz.uz/api';
+    private string $email;
+    private string $password;
+    private string $token;
 
-
-    /**
-     * @param $email string
-     * @param $password string
-     */
-    public function __construct($email, $password)
+    public function __construct(string $email, string $password)
     {
         $this->email = $email;
         $this->password = $password;
     }
 
-    /**
-     * @throws Exception
-     */
-    public function requestAuthLogin()
+    public function requestAuthLogin(): AuthLoginRequest
     {
-        $type = new LoginType();
+        $type = new AuthLoginType();
         $type->email = $this->email;
         $type->password = $this->password;
         $request = new AuthLoginRequest($this->getClient(), $type->toArray());
@@ -91,11 +83,7 @@ class Eskiz
         return $request;
     }
 
-    /**
-     * @return mixed
-     * @throws Exception
-     */
-    public function getClient()
+    public function getClient(): ClientInterface
     {
         if (!$this->client) {
             if (!class_exists($this->clientClass)) {
@@ -107,21 +95,14 @@ class Eskiz
         return $this->client;
     }
 
-    /**
-     * @return AuthInvalidateRequest
-     * @throws Exception
-     */
-    public function requestAuthInvalidate()
+    public function requestAuthInvalidate(): AuthInvalidateRequest
     {
         return new AuthInvalidateRequest($this->getClient(), [], [
             'Authorization' => 'Bearer ' . $this->getToken(),
         ]);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getToken()
+    public function getToken(): string
     {
         if (!$this->token) {
             throw new RuntimeException('Token not found');
@@ -129,99 +110,46 @@ class Eskiz
         return $this->token;
     }
 
-    /**
-     * @return AuthRefreshRequest
-     * @throws Exception
-     */
-    public function requestAuthRefresh()
+    public function requestAuthRefresh(): AuthRefreshRequest
     {
         return new AuthRefreshRequest($this->getClient(), [], [
             'Authorization' => 'Bearer ' . $this->getToken(),
         ]);
     }
 
-    /**
-     * @return AuthUserRequest
-     * @throws Exception
-     */
-    public function requestAuthUser()
+    public function requestAuthUser(): AuthUserRequest
     {
         return new AuthUserRequest($this->getClient(), [], [
             'Authorization' => 'Bearer ' . $this->getToken(),
         ]);
     }
 
-    /**
-     * @param $from int
-     * @param $message string
-     * @param $mobile_phone int
-     * @param $user_sms_id string
-     * @param $callback_url string
-     * @return SmsSendRequest
-     * @throws Exception
-     */
-    public function requestSmsSend($from, $message, $mobile_phone, $user_sms_id, $callback_url = null)
+
+    public function requestSmsSend(SmsSingleSmsType $type): SmsSendRequest
     {
-        $type = new SingleSmsType();
-        $type->from = $from;
-        $type->message = $message;
-        $type->mobile_phone = $mobile_phone;
-        $type->user_sms_id = $user_sms_id;
-        $type->callback_url = $callback_url;
         return new SmsSendRequest($this->getClient(), $type->toArray(), [
             'Authorization' => 'Bearer ' . $this->getToken(),
         ]);
     }
 
-    /**
-     * @param $from numeric
-     * @param $messages array{to: int, message: string, id: string}
-     * @param $dispatch_id string
-     * @param $messageToAll string
-     * @return SmsSendBatchRequest
-     * @throws Exception
-     */
-    public function requestSmsSendBatch($from, $messages, $dispatch_id, $messageToAll = null)
+    public function requestSmsSendBatch(SmsBatchSmsType $type): SmsSendBatchRequest
     {
-        $type = new BatchSmsType();
-        $type->from = $from;
-        $type->message = $messageToAll;
-        $type->messages = $messages;
-        $type->dispatch_id = $dispatch_id;
         return new SmsSendBatchRequest($this->getClient(), $type->toArray(), [
             'Authorization' => 'Bearer ' . $this->getToken(),
             'Content-Type' => 'application/json',
         ]);
     }
 
-    /**
-     * @param $dispatch_id string
-     * @param $user_id string
-     * @return SmsGetDispatchStatusRequest
-     * @throws Exception
-     */
-    public function requestGetDispatchStatus($dispatch_id, $user_id = null)
+    public function requestGetDispatchStatus(SmsGetDispatchStatusType $type): SmsGetDispatchStatusRequest
     {
-        $type = new GetDispatchStatusType();
-        $type->dispatch_id = $dispatch_id;
-        $type->user_id = $user_id;
         return new SmsGetDispatchStatusRequest($this->getClient(), $type->toArray(), [
             'Authorization' => 'Bearer ' . $this->getToken(),
             'Content-Type' => 'multipart/form-data',
         ]);
     }
 
-    /**
-     * @param $dispatch_id
-     * @param $user_id
-     * @return SmsGetUserMessagesByDispatchRequest
-     * @throws Exception
-     */
-    public function requestGetUserMessagesByDispatch($dispatch_id, $user_id = null)
+    public function requestGetUserMessagesByDispatch(SmsGetUserMessagesByDispatchType $type): SmsGetUserMessagesByDispatchRequest
     {
-        $type = new GetUserMessagesByDispatchType();
-        $type->dispatch_id = $dispatch_id;
-        $type->user_id = $user_id;
         return new SmsGetUserMessagesByDispatchRequest($this->getClient(), $type->toArray(), [
             'Authorization' => 'Bearer ' . $this->getToken(),
             'Content-Type' => 'multipart/form-data',

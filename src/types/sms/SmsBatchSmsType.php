@@ -5,24 +5,28 @@ namespace mrmuminov\eskizuz\types\sms;
 use InvalidArgumentException;
 use mrmuminov\eskizuz\types\TypeInterface;
 
-class BatchSmsType implements TypeInterface
+/**
+ * @author Bahriddin Mo'minov
+ */
+class SmsBatchSmsType implements TypeInterface
 {
+    public function __construct(
+        public string $from,
+        /**@var SmsBatchMessageType[] $messages */
+        public array  $messages,
+        public string $dispatch_id,
+    )
+    {
+    }
 
-    public $from;
-    public $message;
-    public $messages;
-    public $dispatch_id;
 
-    public function toArray()
+    public function toArray(): array|bool
     {
         if ($this->validateArguments()) {
             $messages = [];
             foreach ($this->messages as $message) {
-                $singleSmsType = new BatchMessageType();
-                $singleSmsType->to = $message['to'];
-                $singleSmsType->message = isset($message['message']) ? $message['message'] : $this->message;
-                $singleSmsType->user_sms_id = $message['id'];
-                $messages[] = $singleSmsType->toArray();
+                /**@var SmsBatchMessageType $message */
+                $messages[] = $message->toArray();
             }
             return [
                 'from' => $this->from,
@@ -33,7 +37,7 @@ class BatchSmsType implements TypeInterface
         return false;
     }
 
-    public function validateArguments()
+    public function validateArguments(): bool
     {
         if (empty($this->from)) {
             throw new InvalidArgumentException("`from` is empty");

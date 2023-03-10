@@ -2,50 +2,35 @@
 
 namespace mrmuminov\eskizuz\response\auth;
 
-use Exception;
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\response\AbstractResponse;
 
+/**
+ * @author Bahriddin Mo'minov
+ */
 class AuthUserResponse extends AbstractResponse
 {
-    public $successMessage = "Success";
-    /**@var int $id */
-    public $id;
-    /**@var string $name */
-    public $name;
-    /**@var string $email */
-    public $email;
-    /**@var string $role */
-    public $role;
-    /**@var string $api_token */
-    public $api_token;
-    /**@var string $status */
-    public $status;
-    /**@var string $sms_api_login */
-    public $sms_api_login;
-    /**@var string $sms_api_password */
-    public $sms_api_password;
-    /**@var int $uz_price */
-    public $uz_price;
-    /**@var int $balance */
-    public $balance;
-    /**@var int $is_vip */
-    public $is_vip;
-    /**@var string $host */
-    public $host;
-    /**@var string $created_at */
-    public $created_at;
-    /**@var string $updated_at */
-    public $updated_at;
-
-    /**
-     * @throws Exception
-     */
-    public function __construct(ClientInterface $client)
+    public function __construct(
+        public ?ClientInterface $client,
+        public ?int             $id,
+        public ?string          $name,
+        public ?string          $email,
+        public ?string          $role,
+        public ?string          $api_token,
+        public ?string          $status,
+        public ?string          $sms_api_login,
+        public ?string          $sms_api_password,
+        public ?int             $uz_price,
+        public ?int             $balance,
+        public ?int             $is_vip,
+        public ?string          $host,
+        public ?string          $created_at,
+        public ?string          $updated_at,
+        public string           $message = "Success",
+    )
     {
         $this->client = &$client;
         if ($client->getStatusCode() === 200) {
-            $this->message = $this->successMessage;
             $this->isSuccess = true;
             $this->id = $client->getResponse()->id;
             $this->name = $client->getResponse()->name;

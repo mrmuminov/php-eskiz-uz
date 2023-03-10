@@ -2,16 +2,17 @@
 
 namespace mrmuminov\eskizuz\response\sms;
 
+/**
+ * @author Bahriddin Mo'minov
+ */
 class SmsGetUserMessagesByDispatchLinksResponse
 {
-    public $url;
-    public $label;
-    public $active = false;
 
-    public function __construct($data)
+    public function __construct(
+        public ?string $url,
+        public ?string $label,
+        public bool   $active = false,
+    )
     {
-        $this->url = $data->url;
-        $this->label = $data->label;
-        $this->active = $data->active;
     }
 }

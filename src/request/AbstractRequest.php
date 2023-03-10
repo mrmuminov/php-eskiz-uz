@@ -3,40 +3,40 @@
 namespace mrmuminov\eskizuz\request;
 
 /**
- * Class AbstractClient
+ * @author Bahriddin Mo'minov
  */
 abstract class AbstractRequest implements RequestInterface
 {
-    public $action = '';
-    public $responseClass = '';
-    protected $response;
+    public string $action = '';
+    public string $responseClass = '';
+    protected mixed $response;
 
-    public function getAction()
+    public function getAction(): string
     {
         return $this->action;
     }
 
-    public function setAction($action)
+    public function setAction(string $action): void
     {
         $this->action = $action;
     }
 
-    public function getResponse()
+    public function getResponse(): mixed
     {
         return $this->response;
     }
 
-    public function setResponse($response)
+    public function setResponse(mixed $response): void
     {
         $this->response = $response;
     }
 
-    public function getResponseClass()
+    public function getResponseClass(): string
     {
         return $this->responseClass;
     }
 
-    public function setResponseClass($responseClass)
+    public function setResponseClass(string $responseClass): void
     {
         $this->responseClass = $responseClass;
     }

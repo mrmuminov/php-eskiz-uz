@@ -7,14 +7,14 @@ use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\response\auth\AuthInvalidateResponse;
 
 /**
- * Class AuthInvalidateRequest
+ * @author Bahriddin Mo'minov
  *
  * @property AuthInvalidateResponse $response
  */
 class AuthInvalidateRequest extends AbstractRequest
 {
-    public $action = '/auth/invalidate';
-    public $responseClass = AuthInvalidateResponse::class;
+    public string $action = '/auth/invalidate';
+    public string $responseClass = AuthInvalidateResponse::class;
 
     public function __construct(ClientInterface $client, array $params = [], array $headers = [])
     {

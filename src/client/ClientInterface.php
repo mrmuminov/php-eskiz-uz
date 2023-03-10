@@ -3,25 +3,29 @@
 namespace mrmuminov\eskizuz\client;
 
 /**
- * Interface RequestInterface
+ * @author Bahriddin Mo'minov
  */
 interface ClientInterface
 {
-    public function __construct($baseUrl);
+    public function __construct(
+        string $baseUrl,
+        int    $statusCode,
+        mixed  $response
+    );
 
-    public function request($action, $params, $method, array $headers = []);
+    public function request(string $action, array $params, string $method, array $headers = []): ClientInterface;
 
-    public function get($action, array $headers = []);
+    public function get(string $action, array $headers = []): ClientInterface;
 
-    public function post($action, $params, array $headers = []);
+    public function post(string $action, array $params, array $headers = []): ClientInterface;
 
-    public function patch($action, $params, array $headers = []);
+    public function patch(string $action, array $params, array $headers = []): ClientInterface;
 
-    public function put($action, $params, array $headers = []);
+    public function put(string $action, array $params, array $headers = []): ClientInterface;
 
-    public function delete($action, $params, array $headers = []);
+    public function delete(string $action, array $params, array $headers = []): ClientInterface;
 
-    public function getStatusCode();
+    public function getStatusCode(): int;
 
-    public function getResponse();
+    public function getResponse(): mixed;
 }

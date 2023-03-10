@@ -5,25 +5,29 @@ namespace mrmuminov\eskizuz\client;
 use Exception;
 
 /**
- * Class Client
+ * @author Bahriddin Mo'minov
  */
 class Client implements ClientInterface
 {
-    public $baseUrl;
-    public $statusCode;
-    public $response;
-
-    public function __construct($baseUrl)
+    public function __construct(
+        public string $baseUrl,
+        public int    $statusCode,
+        public mixed  $response,
+    )
     {
-        $this->baseUrl = $baseUrl;
     }
 
-    public function get($action, array $headers = [])
+    public function delete($action, $params = [], array $headers = []): Client
+    {
+        return $this->request($action, $params, 'DELETE', $headers);
+    }
+
+    public function get($action, array $headers = []): Client
     {
         return $this->request($action, [], 'GET', $headers);
     }
 
-    public function request($action, $params, $method, array $headers = [])
+    public function request($action, $params, $method, array $headers = []): Client
     {
         $curl = curl_init();
         $options = [
@@ -55,33 +59,28 @@ class Client implements ClientInterface
         return $this;
     }
 
-    public function post($action, $params = [], array $headers = [])
+    public function getResponse(): mixed
     {
-        return $this->request($action, $params, 'POST', $headers);
+        return $this->response;
     }
 
-    public function patch($action, $params = [], array $headers = [])
-    {
-        return $this->request($action, $params, 'PATCH', $headers);
-    }
-
-    public function put($action, $params = [], array $headers = [])
-    {
-        return $this->request($action, $params, 'PUT', $headers);
-    }
-
-    public function delete($action, $params = [], array $headers = [])
-    {
-        return $this->request($action, $params, 'DELETE', $headers);
-    }
-
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->statusCode;
     }
 
-    public function getResponse()
+    public function patch($action, $params = [], array $headers = []): Client
     {
-        return $this->response;
+        return $this->request($action, $params, 'PATCH', $headers);
+    }
+
+    public function post($action, $params = [], array $headers = []): Client
+    {
+        return $this->request($action, $params, 'POST', $headers);
+    }
+
+    public function put($action, $params = [], array $headers = []): Client
+    {
+        return $this->request($action, $params, 'PUT', $headers);
     }
 }

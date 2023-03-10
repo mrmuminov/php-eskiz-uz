@@ -7,7 +7,7 @@ use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\response\auth\AuthUserResponse;
 
 /**
- * Class AuthUserRequest
+ * @author Bahriddin Mo'minov
  *
  * @property AuthUserResponse $response
  */

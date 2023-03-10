@@ -4,18 +4,20 @@ namespace mrmuminov\eskizuz\response\sms;
 
 use Exception;
 
+/**
+ * @author Bahriddin Mo'minov
+ */
 class SmsGetDispatchStatusDataItemResponse
 {
-    public $total;
-    public $status;
 
     /**
      * @throws Exception
      */
-    public function __construct($data)
+    public function __construct(
+        public ?string $total,
+        public ?string $status,
+    )
     {
-        $this->total = $data->total;
-        $this->status = $data->status;
     }
 
 }

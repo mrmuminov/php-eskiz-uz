@@ -7,7 +7,7 @@ use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\response\sms\SmsGetUserMessagesByDispatchResponse;
 
 /**
- * Class SmsGetUserMessagesByDispatchRequest
+ * @author Bahriddin Mo'minov
  *
  * @property SmsGetUserMessagesByDispatchResponse $response
  */

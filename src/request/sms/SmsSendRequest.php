@@ -7,14 +7,14 @@ use mrmuminov\eskizuz\request\AbstractRequest;
 use mrmuminov\eskizuz\response\sms\SmsSendResponse;
 
 /**
- * Class SmsSendRequest
+ * @author Bahriddin Mo'minov
  *
  * @property SmsSendResponse $response
  */
 class SmsSendRequest extends AbstractRequest
 {
-    public $action = '/message/sms/send';
-    public $responseClass = SmsSendResponse::class;
+    public string $action = '/message/sms/send';
+    public string $responseClass = SmsSendResponse::class;
 
     public function __construct(ClientInterface $client, array $type, array $headers = [])
     {

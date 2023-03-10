@@ -6,6 +6,9 @@ use Exception;
 use mrmuminov\eskizuz\client\ClientInterface;
 use mrmuminov\eskizuz\response\AbstractResponse;
 
+/**
+ * @author Bahriddin Mo'minov
+ */
 class AuthRefreshResponse extends AbstractResponse
 {
     /**

@@ -3,26 +3,18 @@
 namespace mrmuminov\eskizuz\components;
 
 /**
- * Trait NormalizerTrait
+ * @author Bahriddin Mo'minov
  */
 trait NormalizerTrait
 {
 
-    /**
-     * @param $phoneNumber
-     * @return int
-     */
-    private function phoneNormalise($phoneNumber)
+    private function phoneNormalise(string $phoneNumber): int
     {
-        return preg_replace('/\D/', '', $phoneNumber);
+        return (int)preg_replace('/\D/', '', $phoneNumber);
     }
 
-    /**
-     * @param $userSmsId
-     * @return array|string|string[]|null
-     */
-    private function userSmsIdNormalize($userSmsId)
+    private function userSmsIdNormalize(string $userSmsId): string
     {
-        return preg_replace('/[^\da-zA-Z]/', '', $userSmsId);
+        return (string)preg_replace('/[^\da-zA-Z]/', '', $userSmsId);
     }
 }
