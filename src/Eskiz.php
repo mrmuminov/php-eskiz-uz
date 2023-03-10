@@ -2,6 +2,7 @@
 
 namespace mrmuminov\eskizuz;
 
+use Exception;
 use RuntimeException;
 use mrmuminov\eskizuz\client\Client;
 use mrmuminov\eskizuz\client\ClientInterface;
@@ -79,12 +80,18 @@ class Eskiz
         $this->password = $password;
     }
 
+    /**
+     * @throws Exception
+     */
     public function requestAuthLogin(): AuthLoginRequest
     {
         $type = new AuthLoginType();
         $type->email = $this->email;
         $type->password = $this->password;
         $request = new AuthLoginRequest($this->getClient(), $type->toArray());
+        if (empty($request->getResponse()->token)) {
+            throw new Exception($request->getResponse()->message, 5);
+        }
         $this->token = $request->getResponse()->token;
         return $request;
     }
