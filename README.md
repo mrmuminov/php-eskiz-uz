@@ -18,6 +18,8 @@ or add the following to your `composer.json` file:
     }
 }
 ```
+> If you need version 5.6 of php, check out older versions.
+> For example [this](https://github.com/mrmuminov/php-eskiz-uz/tree/ab0ffc112dbdaccc8c114e647db16c8214621a7b)
 
 ## Usage
 
