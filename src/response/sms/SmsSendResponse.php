@@ -18,7 +18,11 @@ class SmsSendResponse extends AbstractResponse
         public ?ClientInterface $client,
     )
     {
-        $this->message = $client->getResponse()->message;
+        if (gettype($client->getResponse()->message) === 'string') {
+            $this->message = $client->getResponse()->message;
+        } else {
+            $this->message = json_encode($client->getResponse()->message);
+        }
         if ($client->getStatusCode() === 200) {
             $this->id = (string)$client->getResponse()->id;
             $this->status = $client->getResponse()->status;
